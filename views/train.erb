@@ -1,0 +1,56 @@
+<div id="nav" class="well">
+  <a href="/">Home</a> |
+    <div class="pull-right">
+      <h3>Admin Panel</h3>
+    </div>
+</div>
+
+<div id="main" class="well">
+  <div class="pull-right">
+    <p>id:<%= @train.id() %></p>
+  </div>
+
+<h3><%= @train.route() %></h3>
+
+<a href="/admin/train/<%= @train.id() %>/edit"><i>Edit Train</i></a><br>
+
+<form action="/admin/train/<%= @train.id() %>" method="post">
+  <input type="hidden" name="_method" value="delete">
+  <button type="submit" name="button" class="btn pull-right"><w>Delete Train</w></button>
+</form>
+
+<% if @train_cities.any?() %>
+  <% @train_cities.each() do |city| %>
+  <ul>
+    <li><a href="/admin/city/<%= city.id() %>"><%= city.name + " " + city.find_time(@train.id())+ " " + city.find_price(@train.id()) %> </a> </li>
+  </ul>
+
+  <%end  %>
+<%else  %>
+  This train does not stop on any city.
+<%end  %>
+
+<hr><br>
+<h3>Select all the cities that <%= @train.route() %> train passes through.</h3>
+
+<% if @cities.any?() %>
+  <form action="/admin/trains/<%= @train.id %>" method="post">
+    <input type="hidden" id="train_id" name="train_id" value='<%= @train.id()  %>'>
+    <label for="city_id">Assign a City</label>
+    <select id='city_id' name='city_id' type='text' class="form-control" placeholder="Stop Time">
+      <% @cities.each() do |city| %>
+        <option value="<%= city.id()%>"> <%= city.name() %> </option>
+      <% end %>
+    </select>
+    <br>
+
+      <input type="text" id="stop_time"name="stop_time" class="form-control" placeholder="Enter Stop Time">
+      <p>Example: 07:00:00</p>
+      <input type="text" name="price" placeholder="Enter price" class="form-control">
+      <p>Example: 5</p>
+    <button type="submit" class="btn pull-right"><w>Add City</w></button>
+  </form>
+  <% end %>
+  <br>
+  <br>
+</div>

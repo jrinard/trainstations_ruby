@@ -1,0 +1,59 @@
+<div id="nav" class="well">
+  <a href="/">Home</a> |
+  <a href="/customers/trains">View Trains</a> |
+  <a href="/customers/cities">View Cities</a>
+    <div class="pull-right">
+      <a href="/admin">Admin</a> |
+      <a href="/protected">Signout</a>
+    </div>
+</div>
+
+<div id="main" class="well">
+
+<h3><%= @city.name() %></h3>
+
+
+<h5>Has the following train routes.</h5>
+  <hr>
+<p>Select route to see what cities it will travel to.<p>
+
+
+
+<% if @city_trains.any?() %>
+  <% @city_trains.each() do |train| %>
+  <ul>
+    <li><a href="/customer/train/<%= train.id() %>"><%= train.route %></a> </li>
+  </ul>
+
+  <%end  %>
+<%else  %>
+  This City does not have any trains passing by
+<%end  %>
+<br>
+List of trains passing through <br>
+<% if @city_trains.any?() %>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>id</th>
+        <th>name</th>
+        <th>time</th>
+        <th>price</th>
+      </tr>
+    </thead>
+  <% @city_trains.each do |train| %>
+  <tr>
+    <td><%= train.id %></td>
+    <td><%= train.route %></td>
+    <td><%= train.find_time(@city.id()).slice(0..-4)%></td>
+    <td>$<%= train.find_price(@city.id())%>
+      <form action="/buy_ticket/<%= train.find_price(@city.id())%>" method="post">
+        <input type="hidden" name="price"  value="<%= train.find_price(@city.id())%> ">
+      </form>
+      <a href="/buy_ticket/<%= train.find_price(@city.id())%> ">buy now</a></td>
+  </tr>
+  <% end  %>
+  </table>
+<% end  %>
+
+</div>

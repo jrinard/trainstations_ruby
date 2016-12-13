@@ -1,0 +1,20 @@
+<div id="nav" class="well">
+  <a href="/">Home</a> |
+    <div class="pull-right">
+      <h3>Admin Panel</h3>
+    </div>
+</div>
+<div id="main" class="well">
+
+<h3>Editing <%= @city.name()  %></h3>
+
+
+<form class="" action="/admin/city/<%= @city.id()%>" method="post">
+  <input type="hidden" name="_method" value="patch">
+    <input type="text" name="name" value="" placeholder="New Name" class="form-control">
+    <br>
+    <button type="submit" name="button" class="btn pull-right"><w>Save Rename</w></button>
+    <br><br>
+</form>
+
+</div>

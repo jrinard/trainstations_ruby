@@ -1,0 +1,45 @@
+
+<div id="nav" class="well">
+
+  <div class="pull-right">
+    <h3>Admin Panel</h3>
+  </div>
+
+
+<a href="/">Home</a> |
+
+</div>
+
+<div id="main" class="well">
+
+<h3>List of Trains</h3>
+<span class="pull-right btn"><a href="/train_new"><w>Add Train</w></a></span>
+<p>Select Train to Edit or Delete<p>
+  <div id="trains">
+    <% if @trains.any?() %>
+    <% @trains.each do |train| %>
+    <ul>
+      <li><span class="t_c_options"><a href="/admin/train/<%=train.id()%>"> <%= train.route() %> </a><span></li>
+    </ul>
+    <% end  %>
+  <%else  %>
+  There are no Trains.
+  <% end  %>
+</div>
+<br><hr>
+<h3>List of Cities</h3>
+<span class="pull-right btn"><a href="/city_new"><w>Add City</w></a></span>
+<p>Select city to Edit or Delete<p>
+<div id="cities">
+<% if @cities.any?() %>
+    <% @cities.each do |city| %>
+    <ul>
+      <li><a href="/admin/city/<%=city.id()%>"> <%= city.name() %> </a></li>
+    </ul>
+    <% end  %>
+  <%else  %>
+  There are no Cities.
+  <% end  %>
+</div>
+<br>
+</div>
